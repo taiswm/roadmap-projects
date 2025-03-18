@@ -12,36 +12,68 @@ int main(){
     std::cout << "" << std::endl;
 
     int difficulty_lvl = 0;
+    int startlives = 0;
 
     srand(time(0));
     int answer = rand() % 101;
 
-    std::cout << "Please select your difficulty:" << std::endl;
-    std::cout << "1. Easy - 10 guesses" << std::endl;
-    std::cout << "2. Medium - 5 guesses" << std::endl;
-    std::cout << "3. Hard - 3 guesses" << std::endl;
+    bool status1 = 0;
 
-    std::cin >> difficulty_lvl;
-    std::cout << "" << std::endl;
+    while(status1 == 0){
 
+        std::cout << "Please select your difficulty:" << std::endl;
+        std::cout << "1. Easy - 10 guesses" << std::endl;
+        std::cout << "2. Medium - 5 guesses" << std::endl;
+        std::cout << "3. Hard - 3 guesses" << std::endl;
+        std::cin >> difficulty_lvl;
+        std::cout << "" << std::endl;
+    
     if(difficulty_lvl == 1){
-        int lives = 10;
+         startlives = 10;
         std::cout << "You have chosen easy mode" << std::endl;
         std::cout << "Lets begin!" << std::endl;
+        break;
     }else if(difficulty_lvl == 2){
-        int lives = 5;
+         startlives = 5;
         std::cout << "You have chosen medium mode" << std::endl;
         std::cout << "Lets begin!" << std::endl;
+        break;
     }else if(difficulty_lvl == 3){
-        int lives = 3;
+         startlives = 3;
         std::cout << "You have chosen hard mode" << std::endl;
         std::cout << "Lets begin!" << std::endl;
+        break;
     }else{
         std::cout << "!!Invalid!!" << std::endl;
         std::cout << difficulty_lvl << " is not an option." << std::endl;
     }
-    
+}
+
+    int lives = startlives;
+    bool status2 = 0;
+
+    while(status2 == 0){
+        int guess = 0;
+        std::cout << "Enter your guess: " << std::endl;
+        std::cin >> guess;
+
+        if(guess < answer){
+            std::cout << "The answer is greater than " << guess << std::endl;
+            lives--;
+        }else if(guess > answer){
+            std::cout << "The answer is less than " << guess << std::endl;
+            lives--;
+        }else{
+            std::cout << "Congratulations! The answer was " << answer << std::endl;
+            std::cout << "It took you " << startlives - lives << " attemps to guess the number." << std::endl;
+            status2 = 1;
+        }
+        if(lives == 0){
+                std::cout << "You ran out of attempts! The answer was " << answer << std::endl;
+                status2 = 1;
+        }
 
 
+    }
     return 0;
 }
