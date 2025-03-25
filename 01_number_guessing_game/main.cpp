@@ -2,11 +2,16 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <chrono> //Til tidtagning
+
+using namespace std::chrono;
+
 
 int main()
 {
 
     srand(time(0));
+    
 
     int playAgain = 1;
 
@@ -63,6 +68,7 @@ int main()
 
             int lives = startlives;
             bool status2 = 0;
+            auto start_timer = high_resolution_clock::now();
 
             while (status2 == 0)
             {
@@ -82,13 +88,16 @@ int main()
                 }
                 else
                 {
-                    std::cout << "Congratulations! The answer was " << answer << std::endl;
+                    std::cout << "\nCongratulations! The answer was " << answer << std::endl;
                     std::cout << "It took you " << startlives - lives + 1 << " attemps to guess the number." << std::endl;
+                    auto end_timer = high_resolution_clock::now();
+                    duration<double> elapsed = end_timer - start_timer;
+                    std::cout << "You completed the game in " << elapsed.count() << " seconds!" << std::endl;
                     status2 = 1;
                 }
                 if (lives == 0)
                 {
-                    std::cout << "You ran out of attempts! The answer was " << answer << std::endl;
+                    std::cout << "\nYou ran out of attempts! The answer was " << answer << std::endl;
                     status2 = 1;
                 }
                 
@@ -96,7 +105,8 @@ int main()
 
             }
 
-            std::cout << "Do you want to play again?" << std::endl;
+
+            std::cout << "\nDo you want to play again?" << std::endl;
             std::cout << "1. Yes" << std::endl;
             std::cout << "2. No" << std::endl;
             std::cin >> playAgain;
